@@ -55,7 +55,9 @@ DEFS					=
 
 # automake targets
 check_PROGRAMS				=
-doc_DATA				= README COPYING ChangeLog AUTHORS
+doc_DATA				= README COPYING ChangeLog AUTHORS \
+                                          docs/rfc4226.txt \
+                                          docs/rfc6238.txt
 include_HEADERS				=
 lib_LTLIBRARIES				=
 man_MANS				=
@@ -75,7 +77,9 @@ BUILT_SOURCES				=
 TESTS					=
 XFAIL_TESTS				=
 EXTRA_MANS				=
-EXTRA_DIST				=
+EXTRA_DIST				= \
+					  docs/rfc4226.txt \
+					  docs/rfc6238.txt
 CLEANFILES				= \
 					  $(builddir)/a.out   $(srcdir)/a.out \
 					  $(builddir)/*/a.out $(srcdir)/*/a.out \
