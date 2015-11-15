@@ -60,8 +60,9 @@ check_PROGRAMS				=
 doc_DATA				= README COPYING ChangeLog AUTHORS \
                                           docs/rfc4226.txt \
                                           docs/rfc6238.txt
-include_HEADERS				=
-lib_LTLIBRARIES				=
+include_HEADERS				= include/libreotp.h \
+					  include/libreotp_cdefs.h
+lib_LTLIBRARIES				= lib/libibreotp.la
 man_MANS				=
 info_TEXINFOS				=
 noinst_LTLIBRARIES			=
@@ -81,7 +82,8 @@ XFAIL_TESTS				=
 EXTRA_MANS				=
 EXTRA_DIST				= \
 					  docs/rfc4226.txt \
-					  docs/rfc6238.txt
+					  docs/rfc6238.txt \
+					  lib/libibreotp/libibreotp.sym
 CLEANFILES				= \
 					  $(builddir)/a.out   $(srcdir)/a.out \
 					  $(builddir)/*/a.out $(srcdir)/*/a.out \
@@ -94,6 +96,21 @@ CLEANFILES				= \
 					  @PACKAGE_TARNAME@-*.txz \
 					  @PACKAGE_TARNAME@-*.zip
 DISTCHECK_CONFIGURE_FLAGS		= --enable-strictwarnings
+
+
+# macros for lib/libibreotp.la
+lib_libibreotp_la_DEPENDENCIES		= Makefile \
+					  lib/libibreotp/libibreotp.sym \
+					  $(include_HEADERS)
+lib_libibreotp_la_LDFLAGS		= -rpath'$(libdir)'\
+                                          -version-info $(LIB_VERSION_INFO) \
+                                          $(AM_LDFLAGS) \
+                                          -export-symbols $(srcdir)/lib/libibreotp/libibreotp.sym
+lib_libibreotp_la_SOURCES		= lib/libibreotp/libibreotp.h \
+					  lib/libibreotp/encodings.c \
+					  lib/libibreotp/encodings.h \
+					  lib/libibreotp/version.c \
+					  lib/libibreotp/version.h
 
 
 # Makefile includes
