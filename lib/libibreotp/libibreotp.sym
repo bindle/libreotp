@@ -38,5 +38,8 @@
 #
 # lib/libibreotp/encodings.c
 #
+# lib/libibreotp/version.c
+libreotp_api
+libreotp_version
 #
 # end of symbol export file
