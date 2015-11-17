@@ -71,5 +71,64 @@
 #pragma mark - Functions
 #endif
 
+size_t lotp_decoded_len(lotp_enc enctype, size_t enclen)
+{
+   size_t binlen;
+
+   switch(enctype)
+   {
+      case BASE32:
+      binlen = (enclen / 8) * 5;
+      if ((enclen & 0x07) != 0)
+         binlen += 5;
+      break;
+
+
+      case HEX:
+      binlen = enclen >> 1;
+      if ((enclen & 0x01) != 0)
+         binlen += 2;
+      break;
+
+
+      default:
+      binlen = enclen;
+      break;
+   };
+
+   return(binlen);
+}
+
+
+size_t lotp_encoded_len(lotp_enc enctype, size_t binlen)
+{
+   size_t enclen;
+
+   switch(enctype)
+   {
+      case BASE32:
+      enclen = (binlen / 5) * 8;
+      if ((binlen % 5) != 0)
+         enclen += 8;
+      break;
+
+
+      case HEX:
+      enclen = binlen * 2;
+      break;
+
+
+      case NONE:
+      enclen = binlen;
+      break;
+
+
+      default:
+      enclen = binlen * 8;
+   };
+
+   return(enclen+1);
+}
+
 
 /* end of source */

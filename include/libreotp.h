@@ -71,6 +71,17 @@
 #pragma mark - Data Types
 #endif
 
+typedef enum lotp_enc lotp_enc;
+enum lotp_enc
+{
+   NONE        = 0,
+   HEX         = 1,
+   BASE32      = 2,  ///< RFC4648 compliant
+   //ZBASE32     = 3,  ///< z-base-32
+   //BASE32HEX   = 4,  ///< Triacontakaidecimal
+   //CROCKFORD   = 5,  ///< Crockford's Base32
+   //BASE64      = 6,  ///< RFC 2045
+};
 
 
 //////////////////
@@ -81,6 +92,34 @@
 #ifdef __LIBREOTP_PMARK
 #pragma mark -
 #endif
+
+/**
+ *  @defgroup encodings Encoding/Decoding Functions
+ *  @brief Functions for encoding and decoding binary data.
+ */
+#ifdef __LIBREOTP_PMARK
+#pragma mark Version Prototypes
+#endif
+
+/// @ingroup encodings
+/// Calculates the required buffer size to decode data with the specified
+/// encoding type.
+///
+/// @param[in] enctype  Encoding type
+/// @param[in] enclen   Length of data to be encoded
+/// @return Returns the size of the buffer required to hold the decoded data.
+_LIBREOTP_F size_t lotp_decoded_len(lotp_enc enctype, size_t enclen);
+
+
+/// @ingroup encodings
+/// Calculates the required buffer size to encode data with the specified
+/// encoding type.
+///
+/// @param[in] enctype  Encoding type
+/// @param[in] data_len Length of data to be encoded
+/// @return Returns the size of the buffer required to hold the encoded data.
+_LIBREOTP_F size_t lotp_encoded_len(lotp_enc enctype, size_t binlen);
+
 
 /**
  *  @defgroup version Version Functions
