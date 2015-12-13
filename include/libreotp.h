@@ -102,23 +102,24 @@ enum lotp_enc
 #endif
 
 /// @ingroup encodings
-/// Calculates the required buffer size to decode data with the specified
-/// encoding type.
+/// Calculates the maximum binary buffer size required to decode a string of
+/// the specified length with the specified encoding.
 ///
-/// @param[in] enctype  Encoding type
-/// @param[in] enclen   Length of data to be encoded
-/// @return Returns the size of the buffer required to hold the decoded data.
-_LIBREOTP_F size_t lotp_decoded_len(lotp_enc enctype, size_t enclen);
+/// @param[in] encoding  Encoding type
+/// @param[in] str_len   Length of string to be decoded
+/// @return Returns the maximum size of the buffer required to hold the
+/// decoded data of the specified size.
+_LIBREOTP_F size_t lotp_decode_len(lotp_enc enc_type, size_t str_len);
 
 
 /// @ingroup encodings
 /// Calculates the required buffer size to encode data with the specified
 /// encoding type.
 ///
-/// @param[in] enctype  Encoding type
-/// @param[in] data_len Length of data to be encoded
+/// @param[in] encoding    Encoding type
+/// @param[in] bin_len     Length of binary data to be encoded
 /// @return Returns the size of the buffer required to hold the encoded data.
-_LIBREOTP_F size_t lotp_encoded_len(lotp_enc enctype, size_t binlen);
+_LIBREOTP_F size_t lotp_encode_len(lotp_enc encoding, size_t bin_len);
 
 
 /**
