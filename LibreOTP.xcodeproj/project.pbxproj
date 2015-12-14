@@ -41,6 +41,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A0102FBC1C1F42E600373233 /* acinclude.m4 */ = {isa = PBXFileReference; explicitFileType = text.script; fileEncoding = 4; path = acinclude.m4; sourceTree = "<group>"; };
+		A0102FBD1C1F42E600373233 /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
+		A0102FBE1C1F42E600373233 /* autogen.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = autogen.sh; sourceTree = "<group>"; };
+		A0102FBF1C1F42E600373233 /* ChangeLog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
+		A0102FC01C1F42E600373233 /* configure.ac */ = {isa = PBXFileReference; explicitFileType = text.script; fileEncoding = 4; path = configure.ac; sourceTree = "<group>"; };
+		A0102FC11C1F42E600373233 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		A0102FC21C1F42E600373233 /* Makefile.am */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; indentWidth = 8; path = Makefile.am; sourceTree = "<group>"; tabWidth = 8; usesTabs = 1; };
+		A0102FC31C1F42E600373233 /* NEWS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NEWS; sourceTree = "<group>"; };
+		A0102FC41C1F42E600373233 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		A0102FC61C1F434A00373233 /* port-seq-enc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "port-seq-enc.sh"; sourceTree = "<group>"; };
+		A0102FC71C1F434A00373233 /* port-seq.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "port-seq.sh"; sourceTree = "<group>"; };
+		A0102FC81C1F434A00373233 /* rfc4226.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rfc4226.txt; sourceTree = "<group>"; };
+		A0102FC91C1F434A00373233 /* rfc6238.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rfc6238.txt; sourceTree = "<group>"; };
+		A0102FCA1C1F434A00373233 /* secret.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = secret.txt; sourceTree = "<group>"; };
 		A0AAAA771BFA63A300A8336E /* libreotp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libreotp.h; sourceTree = "<group>"; };
 		A0AAAA781BFA63A300A8336E /* libreotp_cdefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libreotp_cdefs.h; sourceTree = "<group>"; };
 		A0AAAA7B1BFA63A300A8336E /* encodings.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = encodings.c; sourceTree = "<group>"; };
@@ -63,9 +77,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A0102FC51C1F434A00373233 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				A0102FC61C1F434A00373233 /* port-seq-enc.sh */,
+				A0102FC71C1F434A00373233 /* port-seq.sh */,
+				A0102FC81C1F434A00373233 /* rfc4226.txt */,
+				A0102FC91C1F434A00373233 /* rfc6238.txt */,
+				A0102FCA1C1F434A00373233 /* secret.txt */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
 		A0AAAA6B1BFA634500A8336E = {
 			isa = PBXGroup;
 			children = (
+				A0102FBC1C1F42E600373233 /* acinclude.m4 */,
+				A0102FBD1C1F42E600373233 /* AUTHORS */,
+				A0102FBE1C1F42E600373233 /* autogen.sh */,
+				A0102FBF1C1F42E600373233 /* ChangeLog */,
+				A0102FC01C1F42E600373233 /* configure.ac */,
+				A0102FC11C1F42E600373233 /* COPYING */,
+				A0102FC21C1F42E600373233 /* Makefile.am */,
+				A0102FC31C1F42E600373233 /* NEWS */,
+				A0102FC41C1F42E600373233 /* README */,
+				A0102FC51C1F434A00373233 /* docs */,
 				A0AAAA721BFA63A300A8336E /* include */,
 				A0AAAA791BFA63A300A8336E /* lib */,
 				A0AAAA811BFA63A300A8336E /* src */,
@@ -378,6 +414,7 @@
 				A0AAAA871BFA649B00A8336E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A0AAAA8F1BFA64EF00A8336E /* Build configuration list for PBXNativeTarget "ibreotp" */ = {
 			isa = XCConfigurationList;
@@ -386,6 +423,7 @@
 				A0AAAA911BFA64EF00A8336E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
