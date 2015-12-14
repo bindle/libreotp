@@ -71,63 +71,63 @@
 #pragma mark - Functions
 #endif
 
-size_t lotp_decoded_len(lotp_enc enctype, size_t enclen)
+size_t lotp_decode_len(lotp_enc encoding, size_t str_len)
 {
-   size_t binlen;
+   size_t bin_len;
 
-   switch(enctype)
+   switch(encoding)
    {
       case BASE32:
-      binlen = (enclen / 8) * 5;
-      if ((enclen & 0x07) != 0)
-         binlen += 5;
+      bin_len = (str_len / 8) * 5;
+      if ((str_len & 0x07) != 0)
+         bin_len += 5;
       break;
 
 
       case HEX:
-      binlen = enclen >> 1;
-      if ((enclen & 0x01) != 0)
-         binlen += 2;
+      bin_len = str_len >> 1;
+      if ((str_len & 0x01) != 0)
+         bin_len += 2;
       break;
 
 
       default:
-      binlen = enclen;
+      bin_len = str_len;
       break;
    };
 
-   return(binlen);
+   return(bin_len);
 }
 
 
-size_t lotp_encoded_len(lotp_enc enctype, size_t binlen)
+size_t lotp_encode_len(lotp_enc encoding, size_t bin_len)
 {
-   size_t enclen;
+   size_t str_len;
 
-   switch(enctype)
+   switch(encoding)
    {
       case BASE32:
-      enclen = (binlen / 5) * 8;
-      if ((binlen % 5) != 0)
-         enclen += 8;
+      str_len = (bin_len / 5) * 8;
+      if ((bin_len % 5) != 0)
+         str_len += 8;
       break;
 
 
       case HEX:
-      enclen = binlen * 2;
+      str_len = bin_len * 2;
       break;
 
 
       case NONE:
-      enclen = binlen;
+      str_len = bin_len;
       break;
 
 
       default:
-      enclen = binlen * 8;
+      str_len = bin_len * 8;
    };
 
-   return(enclen+1);
+   return(str_len+1);
 }
 
 

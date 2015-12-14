@@ -109,7 +109,7 @@ enum lotp_enc
 /// @param[in] str_len   Length of string to be decoded
 /// @return Returns the maximum size of the buffer required to hold the
 /// decoded data of the specified size.
-_LIBREOTP_F size_t lotp_decode_len(lotp_enc enc_type, size_t str_len);
+_LIBREOTP_F size_t lotp_decode_len(lotp_enc encoding, size_t str_len);
 
 
 /// @ingroup encodings
