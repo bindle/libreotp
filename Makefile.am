@@ -60,8 +60,7 @@ check_PROGRAMS				=
 doc_DATA				= README COPYING ChangeLog AUTHORS \
                                           docs/rfc4226.txt \
                                           docs/rfc6238.txt
-include_HEADERS				= include/libreotp.h \
-					  include/libreotp_cdefs.h
+include_HEADERS				= include/libreotp.h
 lib_LTLIBRARIES				= lib/libibreotp.la
 man_MANS				=
 info_TEXINFOS				=

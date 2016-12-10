@@ -24,7 +24,6 @@
 		A0AAAA961BFA650D00A8336E /* encodings.c in Sources */ = {isa = PBXBuildFile; fileRef = A0AAAA7B1BFA63A300A8336E /* encodings.c */; };
 		A0AAAA991BFA650D00A8336E /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = A0AAAA7F1BFA63A300A8336E /* version.c */; };
 		A0AAAA9B1BFA654200A8336E /* libreotp.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AAAA771BFA63A300A8336E /* libreotp.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0AAAA9C1BFA654200A8336E /* libreotp_cdefs.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AAAA781BFA63A300A8336E /* libreotp_cdefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A0AAAA9D1BFA654F00A8336E /* encodings.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AAAA7C1BFA63A300A8336E /* encodings.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A0AAAA9E1BFA654F00A8336E /* libibreotp.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AAAA7D1BFA63A300A8336E /* libibreotp.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A0AAAA9F1BFA654F00A8336E /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = A0AAAA801BFA63A300A8336E /* version.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -56,7 +55,6 @@
 		A0102FC91C1F434A00373233 /* rfc6238.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rfc6238.txt; sourceTree = "<group>"; };
 		A0102FCA1C1F434A00373233 /* secret.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = secret.txt; sourceTree = "<group>"; };
 		A0AAAA771BFA63A300A8336E /* libreotp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libreotp.h; sourceTree = "<group>"; };
-		A0AAAA781BFA63A300A8336E /* libreotp_cdefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libreotp_cdefs.h; sourceTree = "<group>"; };
 		A0AAAA7B1BFA63A300A8336E /* encodings.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = encodings.c; sourceTree = "<group>"; };
 		A0AAAA7C1BFA63A300A8336E /* encodings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = encodings.h; sourceTree = "<group>"; };
 		A0AAAA7D1BFA63A300A8336E /* libibreotp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libibreotp.h; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				A0AAAA771BFA63A300A8336E /* libreotp.h */,
-				A0AAAA781BFA63A300A8336E /* libreotp_cdefs.h */,
 			);
 			path = include;
 			sourceTree = SOURCE_ROOT;
@@ -170,7 +167,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0AAAA9B1BFA654200A8336E /* libreotp.h in Headers */,
-				A0AAAA9C1BFA654200A8336E /* libreotp_cdefs.h in Headers */,
 				A0AAAA9D1BFA654F00A8336E /* encodings.h in Headers */,
 				A0AAAA9E1BFA654F00A8336E /* libibreotp.h in Headers */,
 				A0AAAA9F1BFA654F00A8336E /* version.h in Headers */,

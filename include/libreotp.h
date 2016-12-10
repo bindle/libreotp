@@ -59,7 +59,53 @@
 #include <inttypes.h>
 #include <netinet/in.h>
 
-#include <libreotp_cdefs.h>
+#ifdef __APPLE__
+#  include "TargetConditionals.h"
+#  ifdef TARGET_OS_MAC
+#     include <libkern/OSAtomic.h>
+#  endif
+#endif
+
+
+//////////////
+//          //
+//  Macros  //
+//          //
+//////////////
+#ifdef LIBREOTP_PMARK
+#pragma mark - Macros
+#endif
+
+// Exports function type
+#undef LIBREOTP_C_DECLS
+#if defined(__cplusplus) || defined(c_plusplus)
+#   define _LIBREOTP_I             extern "C" inline
+#   define LIBREOTP_C_DECLS        "C"             ///< exports as C functions
+#   define LIBREOTP_BEGIN_C_DECLS  extern "C" {    ///< exports as C functions
+#   define LIBREOTP_END_C_DECLS    }               ///< exports as C functions
+#else
+#   define _LIBREOTP_I             inline
+#   define LIBREOTP_C_DECLS        /* empty */     ///< exports as C functions
+#   define LIBREOTP_BEGIN_C_DECLS  /* empty */     ///< exports as C functions
+#   define LIBREOTP_END_C_DECLS    /* empty */     ///< exports as C functions
+#endif
+#ifdef WIN32
+#   ifdef _LIB_LIBLIBREOTP_H
+#      define _LIBREOTP_F   extern LIBREOTP_C_DECLS __declspec(dllexport)   ///< used for library calls
+#      define _LIBREOTP_V   extern LIBREOTP_C_DECLS __declspec(dllexport)   ///< used for library calls
+#   else
+#      define _LIBREOTP_F   extern LIBREOTP_C_DECLS __declspec(dllimport)   ///< used for library calls
+#      define _LIBREOTP_V   extern LIBREOTP_C_DECLS __declspec(dllimport)   ///< used for library calls
+#   endif
+#else
+#   ifdef _LIB_LIBLIBREOTP_H
+#      define _LIBREOTP_F   /* empty */                                     ///< used for library calls
+#      define _LIBREOTP_V   extern LIBREOTP_C_DECLS                         ///< used for library calls
+#   else
+#      define _LIBREOTP_F   extern LIBREOTP_C_DECLS                         ///< used for library calls
+#      define _LIBREOTP_V   extern LIBREOTP_C_DECLS                         ///< used for library calls
+#   endif
+#endif
 
 
 //////////////////
