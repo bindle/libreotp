@@ -51,6 +51,8 @@
 #include <string.h>
 #include <assert.h>
 
+#include "encodings_base32.h"
+
 
 ///////////////////
 //               //
@@ -70,6 +72,25 @@
 #ifdef __LIBREOTP_PMARK
 #pragma mark - Functions
 #endif
+
+size_t lotp_decode_string(lotp_enc encoding, char * str, size_t str_len,
+   uint8_t * bin, size_t bin_size, size_t * str_off)
+{
+   assert(str != NULL);
+   assert(bin != NULL);
+
+   switch(encoding)
+   {
+      case BASE32:
+      return(lotp_decode_string_base32(str, str_len, bin, bin_size, str_off));
+
+      default:
+      break;
+   };
+
+   return(0);
+}
+
 
 size_t lotp_decode_len(lotp_enc encoding, size_t str_len)
 {
@@ -97,6 +118,25 @@ size_t lotp_decode_len(lotp_enc encoding, size_t str_len)
    };
 
    return(bin_len);
+}
+
+
+size_t lotp_encode_binary(lotp_enc encoding, uint8_t * bin, size_t bin_len,
+   char * str, size_t str_len, size_t * bin_off)
+{
+   assert(str != NULL);
+   assert(bin != NULL);
+
+   switch(encoding)
+   {
+      case BASE32:
+      return(lotp_encode_binary_base32(bin, bin_len, str, str_len, bin_off));
+
+      default:
+      break;
+   };
+
+   return(0);
 }
 
 

@@ -37,8 +37,10 @@
 #   lib/libibreotp/libibreotp.sym - exported symbols
 #
 # lib/libibreotp/encodings.c
-lotp_decoded_len
-lotp_encoded_len
+lotp_decode_len
+lotp_decode_string
+lotp_encode_binary
+lotp_encode_len
 #
 # lib/libibreotp/version.c
 libreotp_api

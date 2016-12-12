@@ -165,7 +165,7 @@ _LIBREOTP_F size_t lotp_decode_len(lotp_enc encoding, size_t str_len);
 /// @param[in]  str        Encoded string of the specified encoding.
 /// @param[in]  str_len    Length of string to be decoded
 /// @param[out] bin        Binary buffer for holding decoded data
-/// @param[in]  bin_len    Size of binary buffer
+/// @param[in]  bin_size   Size of binary buffer
 /// @param[out] str_off    Optional reference used to store the number
 ///                        of encoded bytes used to fill decoded buffer.
 /// @return Returns the number of bytes written to output buffer if no
@@ -173,7 +173,7 @@ _LIBREOTP_F size_t lotp_decode_len(lotp_enc encoding, size_t str_len);
 /// or the output buffer was not large enough to store the minimum unit size
 /// of an encoding, the value zero is returned.
 _LIBREOTP_F size_t lotp_decode_string(lotp_enc encoding, char * str,
-   size_t str_len, uint8_t * bin, size_t bin_len, size_t * str_off);
+   size_t str_len, uint8_t * bin, size_t bin_size, size_t * str_off);
 
 
 /// @ingroup encodings

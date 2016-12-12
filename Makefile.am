@@ -108,6 +108,8 @@ lib_libibreotp_la_LDFLAGS		= -rpath'$(libdir)'\
 lib_libibreotp_la_SOURCES		= lib/libibreotp/libibreotp.h \
 					  lib/libibreotp/encodings.c \
 					  lib/libibreotp/encodings.h \
+					  lib/libibreotp/encodings_base32.c \
+					  lib/libibreotp/encodings_base32.h \
 					  lib/libibreotp/version.c \
 					  lib/libibreotp/version.h
 
