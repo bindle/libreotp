@@ -113,65 +113,67 @@ static const char * b32enc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=";
 size_t lotp_decode_string_base32(char * str, size_t str_len, uint8_t * bin,
    size_t bin_size, size_t * str_off)
 {
-   size_t pos;
+   size_t str_pos;
    size_t bin_len;
 
+   str_pos = 0;
    bin_len = 0;
 
-   // decodes base32 string
-   for(pos = 0; ((pos <= str_len) && (bin_len <= (bin_size - 5))); pos += 8)
+   // decodes base32 string to binary bytes
+   while ((str_pos < (str_len-7)) && (bin_len < (bin_size - 5)))
    {
-      // MSB is Most Significant Bits  (0x80 == 10000000 ~= MSB)
-      // MB is middle bits             (0x7E == 01111110 ~= MB)
-      // LSB is Least Significant Bits (0x01 == 00000001 ~= LSB)
-
-      // byte 0
-      bin[bin_len+0]  = (b32dec[str[pos+0]] << 3) & 0xF8; // 5 MSB 11111000 00000000 00000000 00000000 00000000
-      bin[bin_len+0] |= (b32dec[str[pos+1]] >> 2) & 0x07; // 3 LSB 00000111 00000000 00000000 00000000 00000000
-      if ((str[pos+2] == '=') || (str_len <= (pos+2))
+      // byte 0                                                01234567 01234567 01234567 01234567 01234567
+      bin[bin_len]  = (b32dec[str[str_pos+0]] << 3) & 0xF8; // 11111000 00000000 00000000 00000000 00000000
+      bin[bin_len] |= (b32dec[str[str_pos+1]] >> 2) & 0x07; // 00000111 00000000 00000000 00000000 00000000
+      bin_len++;
+      if (str[str_pos+2] == '=')
       {
-          bin_len += 1;
-          break;
+         str_pos += 8;
+         continue;
       };
 
-      // byte 1
-      bin[bin_len+1]  = (b32dec[str[pos+1]] << 6) & 0xC0; // 2 MSB 00000000 11000000 00000000 00000000 00000000
-      bin[bin_len+1] |= (b32dec[str[pos+2]] << 1) & 0x3E; // 5  MB 00000000 00111110 00000000 00000000 00000000
-      bin[bin_len+1] |= (b32dec[str[pos+3]] >> 4) & 0x01; // 1 LSB 00000000 00000001 00000000 00000000 00000000
-      if (str[pos+4] == '=')
+      // byte 1                                                01234567 01234567 01234567 01234567 01234567
+      bin[bin_len]  = (b32dec[str[str_pos+1]] << 6) & 0xC0; // 00000000 11000000 00000000 00000000 00000000
+      bin[bin_len] |= (b32dec[str[str_pos+2]] << 1) & 0x3E; // 00000000 00111110 00000000 00000000 00000000
+      bin[bin_len] |= (b32dec[str[str_pos+3]] >> 4) & 0x01; // 00000000 00000001 00000000 00000000 00000000
+      bin_len++;
+      if (str[str_pos+4] == '=')
       {
-          bin_len += 2;
-          break;
+         str_pos += 8;
+         continue;
       };
 
-      // byte 2
-      bin[bin_len+2]  = (b32dec[str[pos+3]] << 4) & 0xF0; // 4 MSB
-      bin[bin_len+2] |= (b32dec[str[pos+4]] >> 1) & 0x0F; // 4 LSB
-      if (str[pos+5] == '=')
+      // byte 2                                                01234567 01234567 01234567 01234567 01234567
+      bin[bin_len]  = (b32dec[str[str_pos+3]] << 4) & 0xF0; // 00000000 00000000 11110000 00000000 00000000
+      bin[bin_len] |= (b32dec[str[str_pos+4]] >> 1) & 0x0F; // 00000000 00000000 00001111 00000000 00000000
+      bin_len++;
+      if (str[str_pos+5] == '=')
       {
-          bin_len += 3;
-          break;
+         str_pos += 8;
+         continue;
       };
 
-      // byte 3
-      bin[bin_len+3]  = (b32dec[str[pos+4]] << 7) & 0x80; // 1 MSB
-      bin[bin_len+3] |= (b32dec[str[pos+5]] << 2) & 0x7C; // 5  MB
-      bin[bin_len+3] |= (b32dec[str[pos+6]] >> 3) & 0x03; // 2 LSB
-      if (str[pos+7] == '=')
+      // byte 3                                                01234567 01234567 01234567 01234567 01234567
+      bin[bin_len]  = (b32dec[str[str_pos+4]] << 7) & 0x80; // 00000000 00000000 00000000 10000000 00000000
+      bin[bin_len] |= (b32dec[str[str_pos+5]] << 2) & 0x7C; // 00000000 00000000 00000000 01111100 00000000
+      bin[bin_len] |= (b32dec[str[str_pos+6]] >> 3) & 0x03; // 00000000 00000000 00000000 00000011 00000000
+      bin_len++;
+      if (str[str_pos+7] == '=')
       {
-          bin_len += 4;
-          break;
+         str_pos += 8;
+         continue;
       };
 
-      // byte 4
-      bin[bin_len+4]  = (b32dec[str[pos+6]] << 5) & 0xE0; // 3 MSB
-      bin[bin_len+4] |= (b32dec[str[pos+7]] >> 0) & 0x1F; // 5 LSB
-      bin_len += 5;
+      // byte 4                                                01234567 01234567 01234567 01234567 01234567
+      bin[bin_len]  = (b32dec[str[str_pos+6]] << 5) & 0xE0; // 00000000 00000000 00000000 00000000 11100000
+      bin[bin_len] |= (b32dec[str[str_pos+7]] >> 0) & 0x1F; // 00000000 00000000 00000000 00000000 00011111
+      bin_len++;
+
+      str_pos += 8;
    };
-   pos -= 8;
 
    if (str_off != NULL)
-      *str_off = pos;
+      *str_off = str_pos;
 
    return(bin_len);
 }
@@ -181,163 +183,147 @@ size_t lotp_encode_binary_base32(uint8_t * bin, size_t bin_len, char * str,
    size_t str_len, size_t * bin_off)
 {
    uint8_t bits;
-   size_t  spos;
-   size_t  bpos;
+   size_t  str_pos;
+   size_t  bin_pos;
 
-   spos = 0;
-   bpos = 0;
+   str_pos = 0;
+   bin_pos = 0;
 
-   while ( (spos < (str_len-9)) && (bpos < bin_len) )
+   while ( (str_pos < (str_len-9)) && (bin_pos < bin_len) )
    {
       // 01234567 01234567 01234567 01234567 01234567
       // 11111000 00000000 00000000 00000000 00000000
-      bits = (bin[bpos] & 0xF8) >> 3;
-      str[spos] = b32enc[ bits ];
-      spos++;
+      bits = (bin[bin_pos] & 0xF8) >> 3;
+      str[str_pos] = b32enc[ bits ];
+      str_pos++;
 
       // 01234567 01234567 01234567 01234567 01234567
       // 00000111 11000000 00000000 00000000 00000000
-      bits = (bin[bpos] & 0x07) << 2;
-      bpos++;
-      if (bpos >= bin_len)
+      bits = (bin[bin_pos] & 0x07) << 2;
+      bin_pos++;
+      if (bin_pos >= bin_len)
       {
-         str[spos] = b32enc[ bits ];
-         spos++;
+         str[str_pos] = b32enc[ bits ];
+         str_pos++;
          continue;
       };
-      bits |= (bin[bpos] & 0xC0) >> 6;
-      str[spos] = b32enc[ bits ];
-      spos++;
+      bits |= (bin[bin_pos] & 0xC0) >> 6;
+      str[str_pos] = b32enc[ bits ];
+      str_pos++;
 
       // 01234567 01234567 01234567 01234567 01234567
       // 00000000 00111110 00000000 00000000 00000000
-      bits = (bin[bpos] & 0x3E) >> 1;
-      str[spos] = b32enc[ bits ];
-      spos++;
+      bits = (bin[bin_pos] & 0x3E) >> 1;
+      str[str_pos] = b32enc[ bits ];
+      str_pos++;
 
       // 01234567 01234567 01234567 01234567 01234567
       // 00000000 00000001 11110000 00000000 00000000
-      bits = (bin[bpos] & 0x01) << 4;
-      bpos++;
-      if (bpos >= bin_len)
+      bits = (bin[bin_pos] & 0x01) << 4;
+      bin_pos++;
+      if (bin_pos >= bin_len)
       {
-         str[spos] = b32enc[ bits ];
-         spos++;
+         str[str_pos] = b32enc[ bits ];
+         str_pos++;
          continue;
       };
-      bits |= (bin[bpos] & 0xF0) >> 4;
-      str[spos] = b32enc[ bits ];
-      spos++;
+      bits |= (bin[bin_pos] & 0xF0) >> 4;
+      str[str_pos] = b32enc[ bits ];
+      str_pos++;
 
       // 01234567 01234567 01234567 01234567 01234567
       // 00000000 00000000 00001111 10000000 00000000
-      bits = (bin[bpos] & 0x0F) << 1;
-      bpos++;
-      if (bpos >= bin_len)
+      bits = (bin[bin_pos] & 0x0F) << 1;
+      bin_pos++;
+      if (bin_pos >= bin_len)
       {
-         str[spos] = b32enc[ bits ];
-         spos++;
+         str[str_pos] = b32enc[ bits ];
+         str_pos++;
          continue;
       };
-      bits |= (bin[bpos] & 0x01) >> 7;
-      str[spos] = b32enc[ bits ];
-      spos++;
+      bits |= (bin[bin_pos] & 0x01) >> 7;
+      str[str_pos] = b32enc[ bits ];
+      str_pos++;
 
       // 01234567 01234567 01234567 01234567 01234567
       // 00000000 00000000 00000000 01111100 00000000
-      bits = (bin[bpos] & 0x7C) >> 2;
-      str[spos] = b32enc[ bits ];
-      spos++;
+      bits = (bin[bin_pos] & 0x7C) >> 2;
+      str[str_pos] = b32enc[ bits ];
+      str_pos++;
 
       // 01234567 01234567 01234567 01234567 01234567
       // 00000000 00000000 00000000 00000011 11100000
-      bits = (bin[bpos] & 0x03) << 3;
-      bpos++;
-      if (bpos >= bin_len)
+      bits = (bin[bin_pos] & 0x03) << 3;
+      bin_pos++;
+      if (bin_pos >= bin_len)
       {
-         str[spos] = b32enc[ bits ];
-         spos++;
+         str[str_pos] = b32enc[ bits ];
+         str_pos++;
          continue;
       };
-      bits |= (bin[bpos] & 0xE0) >> 5;
-      str[spos] = b32enc[ bits ];
-      spos++;
+      bits |= (bin[bin_pos] & 0xE0) >> 5;
+      str[str_pos] = b32enc[ bits ];
+      str_pos++;
 
       // 01234567 01234567 01234567 01234567 01234567
       // 00000000 00000000 00000000 00000000 00011111
-      bits = bin[bpos] & 0x1F;
-      str[spos] = b32enc[ bits ];
-      spos++;
-      bpos++;
+      bits = bin[bin_pos] & 0x1F;
+      str[str_pos] = b32enc[ bits ];
+      str_pos++;
+      bin_pos++;
    };
 
    // save binary offset
    if (bin_off != NULL)
-      *bin_off = bpos;
+      *bin_off = bin_pos;
 
    // padd and terminate string
-   while((spos % 8) != 0)
+   while((str_pos % 8) != 0)
    {
-      str[spos] = '=';
-      spos++;
+      str[str_pos] = '=';
+      str_pos++;
    };
-   str[spos] = '\0';
+   str[str_pos] = '\0';
 
 
-   return(spos -1);
+   return(str_pos);
 }
 
 
 int lotp_encoding_validate_base32(char * str, size_t str_len, size_t * bin_len)
 {
    size_t pos;
+   size_t rem;
 
    // validates base32 string length
    if (((str_len & 0xF) != 0) && ((str_len & 0xF) != 8))
-   {
       return(1);
-   };
-
 
    // validates syntax of base32 string
    for(pos = 0; (pos < str_len); pos++)
    {
-      // validates character is valid for base32 encoding
-      if (b32dec[str[pos]] == -1)
-      {
-         return(1);
-      };
-
       // validates padding rules
       if (str[pos] == '=')
       {
-         // verifies that padding does not start at beginning of 
-         if (((pos & 0xF) == 0) || ((pos & 0xF) == 8))
-         {
-            return(1);
-         }
+         // padding is never more than 6 characters
          if ((str_len - pos) > 6)
-         {
             return(1);
-         };
-         switch(pos%8)
-         {
-            case 2:
-            case 4:
-            case 5:
-            case 7:
-            break;
 
-            default:
+         // verify padding starts on correct string position
+         rem = pos % 8;
+         if ( (rem != 2) && (rem != 4) && (rem != 5) && (rem != 7) )
             return(1);
-         };
+
+         // verify remainder of string is padding
          for(; (pos < str_len); pos++)
-         {
             if (str[pos] != '=')
-            {
                return(1);
-            };
-         };
+      }
+
+      // validates character is valid for base32 encoding
+      else if (b32dec[str[pos]] == -1)
+      {
+         return(1);
       };
    };
 
